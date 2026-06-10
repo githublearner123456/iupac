@@ -224,31 +224,31 @@
 ]
 ```
 
-结论：根据rmse，下游任务`rdkit_2d` 是表现最好的 `logP` 特征方案，encoder_memory表征方式效果仅位列第三。rmse是评估feature效能的指标，越小越好。(具体评估性能见"logP\results\test_evaluation\feature_prediction_comparison_results")
-注释：
+- 结论：根据rmse，下游任务`rdkit_2d` 是表现最好的 `logP` 特征方案，encoder_memory表征方式效果仅位列第三。rmse是评估feature效能的指标，越小越好。(具体评估性能见"logP\results\test_evaluation\feature_prediction_comparison_results")
+- 注释：
 `fairness_note`：特征评估时的公平性说明，用来标记该特征是否做了“防信息泄漏”处理。当前 `rdkit_2d` 会移除 `MolLogP` 和 `SlogP_VSA*` 这类与目标 `logP` 强相关的描述符，避免结果虚高；`standard` 表示未额外做这类过滤。
 `rdkit_filtered_removed_13`:数据rdkit_2d表征方法中存在与logp相似的指标，为了防止rdkit_2d预测器偷看答案，一共排除13个相关的指标。
 
 ## 9. 生成案例
-1：
+- 1：
 Input IUPAC: N-[1-(4-fluorophenyl)sulfonyl-3,4-dihydro-2H-quinolin-7-yl]quinoline-2-carboxamide
 Predicted SELFIES: [O][=C][Branch2][Ring1][O][N][C][=C][C][=C][C][=Branch1][Ring2][=C][Ring1][=Branch1][C][C][C][N][Ring1][#Branch1][S][=Branch1][C][=O][=Branch1][C][=O][C][=C][C][=C][Branch1][C][F][C][=C][Ring1][#Branch1][N][C][C][O][C][C][Ring1][=Branch1]
 Predicted logP: 3.623795
 
-答案：
+- 答案：
 IUPAC 名称：N-[1-(4-fluorophenyl)sulfonyl-3,4-dihydro-2H-quinolin-7-yl]quinoline-2-carboxamide
 sefies:[O][=C][Branch2][Ring2][#Branch1][N][C][=C][C][=C][C][=Branch1][Ring2][=C][Ring1][=Branch1][N][Branch2][Ring1][Ring1][S][=Branch1][C][=O][=Branch1][C][=O][C][=C][C][=C][Branch1][C][F][C][=C][Ring1][#Branch1][C][C][C][Ring1][P][C][=C][C][=C][C][=C][C][=C][C][Ring1][=Branch1][=N][Ring1][#Branch2]
 logP:4.7677
 
-2:
+- 2:
 Input IUPAC: N-[1-(4-methylsulfonyl-2-nitrophenyl)piperidin-4-yl]methanesulfonamide
 Predicted SELFIES: [C][S][=Branch1][C][=O][=Branch1][C][=O][N][C][C][C][Branch2][Ring1][Ring1][C][N][S][=Branch1][C][=O][=Branch1][C][=O][C][=C][C][=C][C][=C][Ring1][=Branch1][N+1][=Branch1][C][=O][O-1][C][C][Ring2][Ring1][C]
 Predicted logP: 1.275912
 
-答案：
+- 答案：
 IUPAC 名称：N-[1-(4-methylsulfonyl-2-nitrophenyl)piperidin-4-yl]methanesulfonamide
 sefies:[C][S][=Branch1][C][=O][=Branch1][C][=O][N][C][C][C][N][Branch2][Ring1][Branch2][C][=C][C][=C][Branch1][=Branch2][S][Branch1][C][C][=Branch1][C][=O][=O][C][=C][Ring1][#Branch2][N+1][=Branch1][C][=O][O-1][C][C][Ring2][Ring1][Ring1]
 logP:0.5163
 
-结论：第一，由于前面的四种分子表征可知，iupac位于第三因此效能不佳，由分子生成案例可知与logP真实值差距较大。第二，由于训练分子数据仅为三万多个，有可能训练集和测试集中的分子结果复杂程度和logp分布差异，也有可能是iupac不擅长logP任务，最终seflies生成结果也不佳。
-注释：生成案例采用测试集中的分子
+- 结论：第一，由于前面的四种分子表征可知，iupac位于第三因此效能不佳，由分子生成案例可知与logP真实值差距较大。第二，由于训练分子数据仅为三万多个，有可能训练集和测试集中的分子结果复杂程度和logp分布差异，也有可能是iupac不擅长logP任务，最终seflies生成结果也不佳。
+- 注释：生成案例采用测试集中的分子
